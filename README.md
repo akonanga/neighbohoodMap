@@ -17,13 +17,12 @@ You will develop a single page application featuring a map of your neighborhood 
     ####When a POI is clicked:
     1.   InfoWindow will appear on that marker
     1.    Recenters the map on that marker
-    1.    Additional details will appear on the right overlaying the map though I could have added some more details.
 1.  The 'Points of Interest' label is clickable to shows/hide part of the POI area so that clickable markers will have larger area.
 1.  To have even larger clickable markers click the heading 'My Neighborhood Map Project' to show/hide totally the POI.
 1.  Filter will search the POI's on venue name, telephone, address and tip.
 1.  Once filtered markers will be updated to only show the filtered POIs.
-1. Markers are clickable to show the info window and re-centers the map to that clicked marker.
-1. Info Window will contain the venue name, address, telephone and tip.
+1.  Markers are clickable to show the info window and re-centers the map to that clicked marker.
+1.  Info Window will contain the venue name, address, telephone and tip.
     Venue name is also clickable to go to that venue's home web page on a different browser tab.
 
 

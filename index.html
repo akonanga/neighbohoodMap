@@ -16,7 +16,7 @@
 <div id="myTexts">
     <div class="container">
         <div class="row">
-            <h2 data-bind="click: toggleRestText">My Neighborhood Map Project</h2>
+            <h4 data-bind="click: toggleRestText">My Neighborhood Map Project</h4>
         </div>
         <div data-bind="visible: isRestTextVisible">
             <div class="row" id="issueGoogle" style="display: none;" data-bind="visible: isGoogleIssueVisible">
@@ -69,14 +69,6 @@
                             </ul>
                         </div>
                     </div>
-                </span>
-            </div>
-            <div id="pointsOfInterestDetails" class="col-md-6" data-bind="visible: !is4SquareIssueVisible() && isRestTextVisible">
-                <span style="display: none;" data-bind="foreach: displayPOIDetails, visible: isPOIDetailsVisible">
-                    <h4 data-bind="text: venue.name, click: $parent.hidePOIDetails"></h4>
-                    <p>Address: <span data-bind="text: venue.location.formattedAddress"></span></p>
-                    <p>Telephone: <span data-bind="text: venue.contact.formattedPhone"></span></p>
-                    <p>Tip: <span data-bind="text: tips[0].text"></span></p>
                 </span>
             </div>
         </div>

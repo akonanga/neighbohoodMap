@@ -208,11 +208,6 @@ var ViewModel = function () {
 
         self.displayPOIDetails = ko.observableArray();
         self.getPOIDetails = function () {
-            var tempArray = [];
-            this.venue.contact.formattedPhone = (typeof this.venue.contact.formattedPhone === 'undefined') ? 'none' : this.venue.contact.formattedPhone;
-            tempArray.push(this);
-            self.displayPOIDetails(tempArray);
-            self.isPOIDetailsVisible(true);
             map.panTo(new google.maps.LatLng(this.venue.location.lat, this.venue.location.lng));
             //map.setZoom(15);
             var isFound = false;
