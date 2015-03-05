@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Neighborhood Map Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<div id="map-canvas" data-bind="visible: !isGoogleIssueVisible()"></div>
+
+<div id="myTexts">
+    <div class="container">
+        <div class="row">
+            <h2 data-bind="click: toggleRestText">My Neighborhood Map Project</h2>
+        </div>
+        <div data-bind="visible: isRestTextVisible">
+            <div class="row" id="issueGoogle" style="display: none;" data-bind="visible: isGoogleIssueVisible">
+                <div class="col-md-6">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Goggle Problem</h3>
+                        </div>
+                        <div class="panel-body">
+                            There's a problem on accessing Google.  Maybe for the following reason(s):
+                            <ul>
+                                <li>Your are not connected to the internet</li>
+                                <li>Your firewall does not allow access to Google</li>
+                                <li>Google API has changed</li>
+                                <li>Google itself has a problem</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row" data-bind="visible: !isGoogleIssueVisible()">-->
+                <!--<div class="col-md-6">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="sr-only" for="currentNeighborhood">Current Neighborhood</label>-->
+                        <!--<div class="input-group">-->
+                            <!--<div class="input-group-addon">Current Neighborhood</div>-->
+                            <!--<input type="text" class="form-control" id="currentNeighborhood" data-bind="value: currentNeighborhoodName">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;Current Neighborhood: <input data-bind="value: currentNeighborhood().name">&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+            <!---
+            <div class="row">
+                <div id="pointsOfInterest" class="col-md-3">
+                    <input type="text" class="form-control" id="currentNeighborhood" data-bind="value: currentNeighborhoodName" placeholder="city, state">
+                    <h4 data-bind="click: togglePOIList">Points of Interest</h4>
+                    <div data-bind="visible: isPOIListVisible">
+                        <div id="filterListDIV">
+                            <div class="form-group">
+                                <label class="sr-only" for="filterList">Filter</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">Filter</div>
+                                    <input type="text" class="form-control" id="filterList">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-filter"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pointsOfInterestList">
+                            <ul>
+                                <li>a1</li>
+                                <li>a2</li>
+                                <li>a3</li>
+                                <li>a4</li>
+                                <li>a5</li>
+                                <li>a6</li>
+                                <li>a7</li>
+                                <li>a8</li>
+                                <li>a9</li>
+                                <li>a10</li>
+                                <li>a11</li>
+                                <li>a12</li>
+                                <li>a13</li>
+                                <li>a14</li>
+                                <li>a15</li>
+                                <li>a16</li>
+                                <li>a17</li>
+                                <li>a18</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            --->
+        </div>
+    </div>
+</div>
+
+<div id="myEntries" data-bind="visible: !isGoogleIssueVisible()">
+    <div class="container">
+        <div class="row">
+            <div id="pointsOfInterest" class="col-md-3">
+                <span id="issue4Square" style="display: none;" data-bind="visible: is4SquareIssueVisible">
+                    <h4 data-bind="click: togglePOIList">FourSquare Possible Issue(s)</h4>
+                    <div>
+                        <ul>
+                            <li>You are not connected to the internet</li>
+                            <li>Your firewall does not allow access</li>
+                            <li>FourSquare has a problem</li>
+                            <li>FourSquare API has changed</li>
+                        </ul>
+                    </div>
+                </span>
+                <span data-bind="visible: !is4SquareIssueVisible() && isRestTextVisible">
+                    <input type="text" class="form-control" id="currentNeighborhood" data-bind="value: currentNeighborhoodName" placeholder="city, state">
+                    <h4 data-bind="click: togglePOIList">Points of Interest</h4>
+                    <div data-bind="visible: isPOIListVisible">
+                        <div id="filterDIV">
+                            <input type="text" class="form-control" id="filterInput" data-bind="value: currentFilter" placeholder="filter">
+                            <!--<div class="form-group">
+                                <label class="sr-only" for="filter">Filter</label>
+                                <div class="input-group">
+                                    &lt;!&ndash;<div class="input-group-addon">Filter</div>&ndash;&gt;
+                                    <input type="text" class="form-control" id="filter" placeholder="filter">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-filter"></i>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                        <div id="pointsOfInterestList">
+                            <ul data-bind="foreach: displayPOIList">
+                                <li data-bind="click: $parent.getPOIDetails"><span data-bind="text: venue.name"></span>: <span data-bind="text: venue.contact.formattedPhone"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div id="pointsOfInterestDetails" class="col-md-6" data-bind="visible: !is4SquareIssueVisible() && isRestTextVisible">
+                <span style="display: none;" data-bind="foreach: displayPOIDetails, visible: isPOIDetailsVisible">
+                    <h4 data-bind="text: venue.name, click: $parent.hidePOIDetails"></h4>
+                    <p>Address: <span data-bind="text: venue.location.formattedAddress"></span></p>
+                    <p>Telephone: <span data-bind="text: venue.contact.formattedPhone"></span></p>
+                    <p>Tip: <span data-bind="text: tips[0].text"></span></p>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
