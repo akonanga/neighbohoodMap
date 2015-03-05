@@ -9,16 +9,21 @@ You will develop a single page application featuring a map of your neighborhood 
 ###Functionality of the Neighborhood Map Project
 1.  Map is full screen.  But the map is not active that falls on the horizontal area of the heading and the Points On Interest (POI).
     This is due to how Twitter Bootstrap container class is implemented. To have larger clickable markers see items 6 and 7.
-2.  Default neighborhood is San Ramon, CA.  Neighborhood will have the beach flag icon as its marker.
-3.  Neighborhood and Filter data entries and POI are placed at the bottom so that clickable markers will have larger area.
-4.  POIs are based from the Neighborhood entry and these POI's are coming from Foursquare API call.
-5.  POI will only have the name of the venue and it's telephone number.  POI is clickable so that the details will appear on the right overlaying the map.
-6.  The 'Points of Interest' label is clickable to shows/hide part of the POI area so that clickable markers will have larger area.
-7.  To have even larger clickable markers click the heading 'My Neighborhood Map Project' to show/hide totally the POI.
-8.  Filter will search the POI's on venue name, telephone, address and tip.
-9.  Once filtered markers will be updated to only show the filtered POIs.
-10. Markers are clickable to show the info window and re-centers the map to that clicked marker.
-11. Info Window will contain the venue name, address, telephone and tip.
+1.  Default neighborhood is San Ramon, CA.  Neighborhood will have the beach flag icon as its marker.
+1.  Neighborhood and Filter data entries and POI are placed at the bottom so that clickable markers will have larger area.
+    You need to press the enter key once done with any data entry.
+1.  POIs are based from the Neighborhood entry and these POI's are coming from Foursquare API call.
+1.  POI will only have the name of the venue and it's telephone number.
+    ####When a POI is clicked:
+    1.   InfoWindow will appear on that marker
+    1.    Recenters the map on that marker
+    1.    Additional details will appear on the right overlaying the map though I could have added some more details.
+1.  The 'Points of Interest' label is clickable to shows/hide part of the POI area so that clickable markers will have larger area.
+1.  To have even larger clickable markers click the heading 'My Neighborhood Map Project' to show/hide totally the POI.
+1.  Filter will search the POI's on venue name, telephone, address and tip.
+1.  Once filtered markers will be updated to only show the filtered POIs.
+1. Markers are clickable to show the info window and re-centers the map to that clicked marker.
+1. Info Window will contain the venue name, address, telephone and tip.
     Venue name is also clickable to go to that venue's home web page on a different browser tab.
 
 
@@ -74,11 +79,9 @@ None of these are required, but they may be helpful.
 1.  [http://stackoverflow.com/questions/6150409/google-map-v3-set-center-to-specific-marker](http://stackoverflow.com/questions/6150409/google-map-v3-set-center-to-specific-marker)
 1.  [https://developers.google.com/maps/documentation/javascript/examples/marker-remove](https://developers.google.com/maps/documentation/javascript/examples/marker-remove)
 1.  Click binding with parm [http://knockoutjs.com/documentation/click-binding.html](http://knockoutjs.com/documentation/click-binding.html)
+1.  Opening infowindow when poi list is clicked[http://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link](http://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link)
 
 1.  [Google Maps](https://developers.google.com/maps/documentation/)
-
-### To execute the Neighborhood Map site:
-Click [http://akonanga.github.io/neighborhoodMap/index.html](http://akonanga.github.io/neighborhoodMap/index.html).
 
 ### Additional resources that helped me accomplish this project
 1.  I used [http://getbootstrap.com/](http://getbootstrap.com/) for styling.

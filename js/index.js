@@ -54,6 +54,16 @@ var ViewModel = function () {
                 position: results[0].geometry.location
             });
             markers.push(marker);
+            myDefaultNeighborhood = results[0];
+            google.maps.event.addListener(marker, 'click', function() {
+                map.panTo(marker.getPosition());
+                infoWindow.setContent(
+                    "<div>" +
+                    "<h3>" + myDefaultNeighborhood.formatted_address + "</h3>" +
+                    "</div>"
+                );
+                infoWindow.open(map,marker);
+            });
             get_infoFrom4Square(results[0].geometry.location.lat(), results[0].geometry.location.lng());
         }
     };
@@ -75,6 +85,7 @@ var ViewModel = function () {
             } else {
                 self.currentFilter('');
             }
+            google.maps.event.trigger(markers[0], 'click');
         }).error(function (evt) {
             //foursquare issue
             self.is4SquareIssueVisible(true);
@@ -196,12 +207,24 @@ var ViewModel = function () {
         };
 
         self.displayPOIDetails = ko.observableArray();
-        self.getPOIDetails = function (poi) {
+        self.getPOIDetails = function () {
             var tempArray = [];
-            poi.venue.contact.formattedPhone = (typeof poi.venue.contact.formattedPhone === 'undefined') ? 'none' : poi.venue.contact.formattedPhone;
-            tempArray.push(poi)
+            this.venue.contact.formattedPhone = (typeof this.venue.contact.formattedPhone === 'undefined') ? 'none' : this.venue.contact.formattedPhone;
+            tempArray.push(this);
             self.displayPOIDetails(tempArray);
             self.isPOIDetailsVisible(true);
+            map.panTo(new google.maps.LatLng(this.venue.location.lat, this.venue.location.lng));
+            //map.setZoom(15);
+            var isFound = false;
+            var i = 0;
+            do{
+                if(this.venue.id === self.displayPOIList()[i].venue.id) {
+                    isFound = true;
+                } else {
+                    ++i;
+                }
+            }while(!isFound && i < self.displayPOIList().length);
+            google.maps.event.trigger(markers[++i], 'click');
         };
 
         self.hidePOIDetails = function () {
