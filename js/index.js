@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by vidaluson on 3/2/15.
  */
@@ -23,6 +24,8 @@ var ViewModel = function () {
     var client_id = 'C4KJ2R33H3VRWV4PGTJWPL1H4Q2YZ1KZMYAASDDJ5PV2JZPY';         //foursquare credentials
     var client_secret = '3HVIXSPYGDXRUSGQSYUVSIA3QWHQJ3YMQQESLYKZKB2RVIQ5';     //foursquare credentials
 
+    var current_animatedMarker;         //current animated marker;
+
     var myDefaultNeighborhood = {
         name: 'San Ramon',
         lat: 37.766064,
@@ -30,17 +33,19 @@ var ViewModel = function () {
     };
 
     var map_currentNeighborhood = function(thisNeighborhoodName) {
+        //get google map of a given city
         //https://developers.google.com/maps/documentation/javascript/places
         var request = {
             query: thisNeighborhoodName
         };
         service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, callback);
+        service.textSearch(request, callback);  //callback method to textSearch(), to handle the results object and google.maps.places.PlacesServiceStatus response.
     };
 
-    // Checks that the PlacesServiceStatus is OK, and adds a marker
-    // using the place ID and location from the PlacesService.
     var callback = function(results, status) {
+        // callback is the callback function when service.textSearch() is done (see service.textSearch() statement immediately above)
+        // Checks that the PlacesServiceStatus is OK, and adds a marker
+        // using the place ID and location from the PlacesService.
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var lat = results[0].geometry.location.lat();
             var lng = results[0].geometry.location.lng();
@@ -56,19 +61,33 @@ var ViewModel = function () {
             markers.push(marker);
             myDefaultNeighborhood = results[0];
             google.maps.event.addListener(marker, 'click', function() {
+                if (marker.getAnimation() != null) {
+                    marker.setAnimation(null);
+
+                } else {
+                    if (typeof current_animatedMarker === 'object') {
+                        current_animatedMarker.setAnimation(null);
+                    }
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    current_animatedMarker = marker;
+                }
                 map.panTo(marker.getPosition());
                 infoWindow.setContent(
-                    "<div>" +
-                    "<h3>" + myDefaultNeighborhood.formatted_address + "</h3>" +
+                    "<div id='infoWindowHook'>" +
+                    "<h6>" + myDefaultNeighborhood.formatted_address + "</h6>" +
                     "</div>"
                 );
-                infoWindow.open(map,marker);
+                infoWindow.open(map, marker);
             });
             get_infoFrom4Square(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+        } else {
+            console.log('Google API for Places has an issue');
+            self.isGoogleIssueVisible(true);
         }
     };
 
     var get_infoFrom4Square = function (lat, lng) {
+        //get venues from foursquare by coordinates
         var today = new Date();
         var v = today.getFullYear().toString() + ("0" + (today.getMonth() + 1)).slice(-2) + ("0" + (today.getDate())).slice(-2);
         var foursquareURL = 'https://api.foursquare.com/v2/venues/explore?ll=' + lat + ',' + lng + '&client_id=' + client_id + '&client_secret=' + client_secret + '&v=' + v;
@@ -93,6 +112,7 @@ var ViewModel = function () {
     };
 
     var delete_markers = function (isRetain0ndx) {
+        //deletes google map markers
         for (var i = 0; i < markers.length; i++) {
             if(isRetain0ndx && i === 0) {
             } else {
@@ -105,6 +125,7 @@ var ViewModel = function () {
     };
 
     var create_markers = function (dataItems, i) {
+        //creates google map markers
         var dataAddlText = {
             venue: dataItems.venue.name,
             address: dataItems.venue.location.formattedAddress,
@@ -125,21 +146,32 @@ var ViewModel = function () {
         markers.push(marker);
         google.maps.event.addListener(marker, "click", (function(marker, i) {
             return function() {
+                if (marker.getAnimation() != null) {
+                    marker.setAnimation(null);
+
+                } else {
+                    if (typeof current_animatedMarker === 'object') {
+                        current_animatedMarker.setAnimation(null);
+                    }
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    current_animatedMarker = marker;
+                }
                 map.panTo(marker.getPosition());
                 infoWindow.setContent(
-                    "<div>" +
-                    "<a href='" + cachedPOIList[i].url + "' target='_blank'><h3>" + markersInfoWindow[i].venue + "</h3></a>" +
-                    "<p><span style='font-weight:bold;'>Address: </span>" + markersInfoWindow[i].address.join(' ') + "</p>" +
-                    "<p><span style='font-weight:bold;'>Telephone: </span>" + markersInfoWindow[i].telephone + "</p>" +
-                    "<p><span style='font-weight:bold;'>Tip: </span>" + markersInfoWindow[i].tip + "</p>" +
+                    "<div id='infoWindowHook'>" +
+                    "<a href='" + cachedPOIList[i].venue.url + "' target='_blank'><h5>" + markersInfoWindow[i].venue + "</h5></a>" +
+                    "<p>" + markersInfoWindow[i].address.join(' ') +
+                    "<br><span style='font-weight:bold;'>" + markersInfoWindow[i].telephone + "</span></p>" +
+                    "<p id='infoWindowHook_tip'><span style='font-weight:bold;'>Tip: </span>" + markersInfoWindow[i].tip + "</p>" +
                     "</div>"
                 );
                 infoWindow.open(map, marker);
-            }
+            };
         })(marker, i));
     };
 
     var filter_POI = function (thisFilter) {
+        //filter the list of POIs and show the corresponding markers
         thisFilter = $.trim(thisFilter);
         if(thisFilter.length === 0) {
             self.displayPOIList([]);
@@ -173,10 +205,18 @@ var ViewModel = function () {
         //init google map BEGIN
         var mapOptions = {
             center: new google.maps.LatLng(myDefaultNeighborhood.lat, myDefaultNeighborhood.lng),
-            zoom: 13
+            zoom: 13,
+            disableDefaultUI: true
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
         infoWindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(infoWindow,'closeclick',function(){
+            if (typeof current_animatedMarker === 'object') {
+                current_animatedMarker.setAnimation(null);
+            }
+        });
+
         //init google map END
 
         self.currentNeighborhood = ko.observable(myDefaultNeighborhood);

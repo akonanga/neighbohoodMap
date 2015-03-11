@@ -1,0 +1,36 @@
+
+
+html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+
+
+#issueGoogle {
+    position: absolute;
+    top: 40px;
+    left: 1px;
+    z-index: 1001;
+}
+
+#myEntries {
+    position: fixed;
+    opacity: 0.8;
+    bottom: 0;
+    z-index: 1001;
+}
+
+
+#pointsOfInterest {
+    background-color: whitesmoke;
+}
+
+#pointsOfInterestList {
+    height: 300px;
+    overflow: auto;
+}
+
+#infoWindowHook {
+    width: 200px;
+}
+
+#infoWindowHook p {
+    font-size: 12px;
+}

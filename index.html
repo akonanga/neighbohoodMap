@@ -7,44 +7,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
+
+    <!--Smartphones portraint and landscape-->
+    <link rel="stylesheet" media="screen and (min-width: 320px) and (max-width: 480px)" href="css/stylePhonePL.css"/>
+    <!--Smartphones landscape-->
+    <link rel="stylesheet" media="screen and (min-width: 321px)" href="css/stylePhoneL.css"/>
+    <!--Smartphones portrait-->
+    <link rel="stylesheet" media="screen and (max-width: 320px)" href="css/stylePhoneP.css"/>
+    <!--Tablets portraint and landscape-->
+    <link rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 1024px)" href="css/styleTabletPL.css"/>
+    <!--Tablets landscape-->
+    <link rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape)" href="css/styleTabletL.css"/>
+    <!--    Tablets portrait -->
+    <link rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait)" href="css/styleTabletP.css"/>
+    <link rel="stylesheet" media="screen and (min-width: 800px)" href="css/style.css"/>
+    <!--<link rel="stylesheet"href="css/style.css"/>-->
+    <!--
+    Udacity last feedback url: https://review.udacity.com/#!/projects/17/feedback?role=student&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4MTksImV4cCI6MTQyNjA2MzY2M30.UBToHgQgaEsEi98zZ_ckxbmp7aaaAn-IVkfcG6u0ewc
+    -->
 </head>
 <body>
 
 <div id="map-canvas" data-bind="visible: !isGoogleIssueVisible()"></div>
 
-<div id="myTexts">
-    <div class="container">
+<div id="myHeading">
+    <h4 data-bind="click: toggleRestText">My Neighborhood Map Project</h4>
+</div>
+
+<span data-bind="visible: isRestTextVisible">
+    <div class="container" id="issueGoogle" style="display: none;" data-bind="visible: isGoogleIssueVisible">
         <div class="row">
-            <h4 data-bind="click: toggleRestText">My Neighborhood Map Project</h4>
-        </div>
-        <div data-bind="visible: isRestTextVisible">
-            <div class="row" id="issueGoogle" style="display: none;" data-bind="visible: isGoogleIssueVisible">
-                <div class="col-md-6">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Goggle Problem</h3>
-                        </div>
-                        <div class="panel-body">
-                            There's a problem on accessing Google.  Maybe for the following reason(s):
-                            <ul>
-                                <li>Your are not connected to the internet</li>
-                                <li>Your firewall does not allow access to Google</li>
-                                <li>Google API has changed</li>
-                                <li>Google itself has a problem</li>
-                            </ul>
-                        </div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Google Problem</h3>
+                    </div>
+                    <div class="panel-body">
+                        There's a problem on accessing Google. Maybe for the following reason(s):
+                        <ul>
+                            <li>Your are not connected to the internet</li>
+                            <li>Your firewall does not allow access to Google</li>
+                            <li>Google API has changed</li>
+                            <li>Google itself has a problem</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</span>
 
 <div id="myEntries" data-bind="visible: !isGoogleIssueVisible()">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div id="pointsOfInterest" class="col-md-3">
+            <div class="col-sm-12 col-md-12">
+            <div id="pointsOfInterest">
+                <!--<div id="myHeading">-->
+                    <!--<h4 data-bind="click: toggleRestText">My Neighborhood Map Project</h4>-->
+                <!--</div>-->
                 <span id="issue4Square" style="display: none;" data-bind="visible: is4SquareIssueVisible">
                     <h4 data-bind="click: togglePOIList">FourSquare Possible Issue(s)</h4>
                     <div>
@@ -58,19 +78,20 @@
                 </span>
                 <span data-bind="visible: !is4SquareIssueVisible() && isRestTextVisible">
                     <input type="text" class="form-control" id="currentNeighborhood" data-bind="value: currentNeighborhoodName" placeholder="city, state">
-                    <h4 data-bind="click: togglePOIList">Points of Interest</h4>
+                    <h4 id="pointsOfInterest_heading" data-bind="click: togglePOIList">Points of Interest</h4>
                     <div data-bind="visible: isPOIListVisible">
                         <div id="filterDIV">
                             <input type="text" class="form-control" id="filterInput" data-bind="value: currentFilter" placeholder="filter">
                         </div>
                         <div id="pointsOfInterestList">
                             <ul data-bind="foreach: displayPOIList">
-                                <li data-bind="click: $parent.getPOIDetails"><span data-bind="text: venue.name"></span>: <span data-bind="text: venue.contact.formattedPhone"></span></li>
+                                <li data-bind="click: $parent.getPOIDetails"><span data-bind="text: venue.name"></span>: <span id="venuePhone" data-bind="text: venue.contact.formattedPhone"></span></li>
                             </ul>
                         </div>
                     </div>
                 </span>
             </div>
+                </div>
         </div>
     </div>
 </div>

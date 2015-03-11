@@ -1,0 +1,62 @@
+
+
+html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+
+#myHeading {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    z-index: 1001;
+}
+#myHeading h4 {
+    font-size: 13px;
+}
+
+#issueGoogle {
+    position: absolute;
+    top: 40px;
+    left: 1px;
+    z-index: 1001;
+}
+
+#myEntries {
+    position: fixed;
+    opacity: 0.8;
+    bottom: 0;
+    z-index: 1001;
+    width: 175px;
+    font-size: 10px;
+}
+#myEntries h4 {
+    font-size: 15px;
+}
+
+
+#pointsOfInterest {
+    background-color: whitesmoke;
+}
+#pointsOfInterest_heading {
+    font-size: 13px;
+}
+
+#pointsOfInterestList {
+    height: 100px;
+    overflow: auto;
+}
+#pointsOfInterestList ul{
+    margin-left: 10px;
+    padding: 10px;
+    list-style: circle;
+}
+
+#infoWindowHook {
+    width: 150px;
+}
+
+#infoWindowHook p {
+    font-size: 10px;
+}
+
+#infoWindowHook_tip {
+    display: none;
+}
