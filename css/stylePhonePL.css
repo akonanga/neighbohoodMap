@@ -34,6 +34,11 @@ z-index: 1001;
     overflow: auto;
 }
 
+.clickedPOI {
+    background-color: yellow;
+    font-weight: bolder;
+}
+
 #infoWindowHook {
     width: 200px;
 }

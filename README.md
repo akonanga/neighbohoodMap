@@ -22,7 +22,7 @@ You will develop a single page application featuring a map of your neighborhood 
 1.  Filter will search the POI's on venue name, telephone, address and tip.
 1.  Once filtered markers will be updated to only show the filtered POIs.
 1.  Markers are clickable to show the info window and re-centers the map to that clicked marker.
-1.  Info Window will contain the venue name, address, telephone and tip. Tip is not shown on phones.
+1.  Info Window will contain the venue name, address, telephone and tip.  Tip is not shown on phones.
     Venue name is also clickable to go to that venue's home web page on a different browser tab.
 
 
@@ -86,7 +86,7 @@ None of these are required, but they may be helpful.
 1.  Media Queries: [http://www.andreasnorman.com/css-media-queries-for-mobile-devices/](http://www.andreasnorman.com/css-media-queries-for-mobile-devices/)
 1.  Marker animation: [https://developers.google.com/maps/documentation/javascript/examples/marker-animations](https://developers.google.com/maps/documentation/javascript/examples/marker-animations)
 1.  Marker animation: [http://stackoverflow.com/questions/6515250/one-marker-animation-at-a-time-google-maps-api-3](http://stackoverflow.com/questions/6515250/one-marker-animation-at-a-time-google-maps-api-3)
-
+1.  Toggle class on click: [http://stackoverflow.com/questions/17344935/select-an-item-in-a-list-on-click-with-knockout](http://stackoverflow.com/questions/17344935/select-an-item-in-a-list-on-click-with-knockout)
 1.  [Google Maps](https://developers.google.com/maps/documentation/)
 
 ### Additional resources that helped me accomplish this project

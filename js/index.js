@@ -25,6 +25,7 @@ var ViewModel = function () {
     var client_secret = '3HVIXSPYGDXRUSGQSYUVSIA3QWHQJ3YMQQESLYKZKB2RVIQ5';     //foursquare credentials
 
     var current_animatedMarker;         //current animated marker;
+    self.currentPOI = ko.observable();  //current clicked POI;
 
     var myDefaultNeighborhood = {
         name: 'San Ramon',
@@ -78,6 +79,7 @@ var ViewModel = function () {
                     "</div>"
                 );
                 infoWindow.open(map, marker);
+                self.currentPOI(null);
             });
             get_infoFrom4Square(results[0].geometry.location.lat(), results[0].geometry.location.lng());
         } else {
@@ -157,15 +159,20 @@ var ViewModel = function () {
                     current_animatedMarker = marker;
                 }
                 map.panTo(marker.getPosition());
+                var tempURL = (typeof cachedPOIList[i].venue.url !== 'undefined')
+                            ? "<a href='" + cachedPOIList[i].venue.url + "' target='_blank'><h5>" + markersInfoWindow[i].venue + "</h5></a>"
+                            : "<h5>" + markersInfoWindow[i].venue + "</h5>";
                 infoWindow.setContent(
                     "<div id='infoWindowHook'>" +
-                    "<a href='" + cachedPOIList[i].venue.url + "' target='_blank'><h5>" + markersInfoWindow[i].venue + "</h5></a>" +
+                    tempURL +
                     "<p>" + markersInfoWindow[i].address.join(' ') +
                     "<br><span style='font-weight:bold;'>" + markersInfoWindow[i].telephone + "</span></p>" +
                     "<p id='infoWindowHook_tip'><span style='font-weight:bold;'>Tip: </span>" + markersInfoWindow[i].tip + "</p>" +
                     "</div>"
                 );
                 infoWindow.open(map, marker);
+                self.currentPOI(cachedPOIList[i].venue.id);
+                window.location.hash = 'poi_' + cachedPOIList[i].venue.id;
             };
         })(marker, i));
     };
@@ -215,6 +222,7 @@ var ViewModel = function () {
             if (typeof current_animatedMarker === 'object') {
                 current_animatedMarker.setAnimation(null);
             }
+            self.currentPOI(null);
         });
 
         //init google map END
@@ -248,6 +256,7 @@ var ViewModel = function () {
 
         self.displayPOIDetails = ko.observableArray();
         self.getPOIDetails = function () {
+            //self.currentPOI(this.venue.id);
             map.panTo(new google.maps.LatLng(this.venue.location.lat, this.venue.location.lng));
             //map.setZoom(15);
             var isFound = false;

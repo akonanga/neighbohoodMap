@@ -85,7 +85,9 @@
                         </div>
                         <div id="pointsOfInterestList">
                             <ul data-bind="foreach: displayPOIList">
-                                <li data-bind="click: $parent.getPOIDetails"><span data-bind="text: venue.name"></span>: <span id="venuePhone" data-bind="text: venue.contact.formattedPhone"></span></li>
+                                <li data-bind="attr: { id: 'poi_' + venue.id }, click: $parent.getPOIDetails, css: { 'clickedPOI': venue.id === $parent.currentPOI() }">
+                                    <span data-bind="text: venue.name"></span>: <span id="venuePhone" data-bind="text: venue.contact.formattedPhone"></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
