@@ -159,8 +159,8 @@ var ViewModel = function () {
                     current_animatedMarker = marker;
                 }
                 map.panTo(marker.getPosition());
-                var tempURL = (typeof cachedPOIList[i].venue.url !== 'undefined')
-                            ? "<a href='" + cachedPOIList[i].venue.url + "' target='_blank'><h5>" + markersInfoWindow[i].venue + "</h5></a>"
+                var tempURL = (typeof dataItems.venue.url !== 'undefined')
+                            ? "<a href='" + dataItems.venue.url + "' target='_blank'><h5>" + markersInfoWindow[i].venue + "</h5></a>"
                             : "<h5>" + markersInfoWindow[i].venue + "</h5>";
                 infoWindow.setContent(
                     "<div id='infoWindowHook'>" +
@@ -172,7 +172,7 @@ var ViewModel = function () {
                 );
                 infoWindow.open(map, marker);
                 self.currentPOI(i);
-                window.location.hash = 'poi_' + cachedPOIList[i].venue.id;
+                window.location.hash = 'poi_' + dataItems.venue.id;
             };
         })(marker, i));
     };
