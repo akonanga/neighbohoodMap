@@ -171,7 +171,7 @@ var ViewModel = function () {
                     "</div>"
                 );
                 infoWindow.open(map, marker);
-                self.currentPOI(cachedPOIList[i].venue.id);
+                self.currentPOI(i);
                 window.location.hash = 'poi_' + cachedPOIList[i].venue.id;
             };
         })(marker, i));
@@ -203,6 +203,7 @@ var ViewModel = function () {
         for (var i = 0; i < self.displayPOIList().length; i++) {
             create_markers(self.displayPOIList()[i], i);
         }
+        self.currentPOI(null);
     };
 
     self.isGoogleIssueVisible = ko.observable(false);
@@ -255,8 +256,7 @@ var ViewModel = function () {
         };
 
         self.displayPOIDetails = ko.observableArray();
-        self.getPOIDetails = function () {
-            //self.currentPOI(this.venue.id);
+        self.getPOIDetails = function (data, evt) {
             map.panTo(new google.maps.LatLng(this.venue.location.lat, this.venue.location.lng));
             //map.setZoom(15);
             var isFound = false;
@@ -269,6 +269,8 @@ var ViewModel = function () {
                 }
             }while(!isFound && i < self.displayPOIList().length);
             google.maps.event.trigger(markers[++i], 'click');
+            var parts = evt.target.id.split('_');
+            self.currentPOI(parseInt(parts[parts.length - 1],10));
         };
 
         self.hidePOIDetails = function () {
